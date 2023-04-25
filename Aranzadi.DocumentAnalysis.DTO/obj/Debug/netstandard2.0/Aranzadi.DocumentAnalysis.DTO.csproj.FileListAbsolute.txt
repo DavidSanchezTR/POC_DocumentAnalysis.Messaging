@@ -1,0 +1,10 @@
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\bin\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.deps.json
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\bin\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.dll
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\bin\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.pdb
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.csproj.AssemblyReference.cache
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.AssemblyInfoInputs.cache
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.AssemblyInfo.cs
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.csproj.CoreCompileInputs.cache
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.dll
+C:\GitHub_DocumentAnalysis\Aranzadi.DocumentAnalysis.DTO\obj\Debug\netstandard2.0\Aranzadi.DocumentAnalysis.DTO.pdb
