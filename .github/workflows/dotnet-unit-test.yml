@@ -33,8 +33,14 @@ jobs:
         uses: actions/checkout@v3
       - name: DotNet Unit Tests
         uses: zyborg/dotnet-tests-report@v1
-        #if: ${{ !cancelled() }}
+        if: ${{ !cancelled() }}
         with:
           project_path: Aranzadi.DocumentAnalysis.Messaging.Test
           report_name: backend_test_results
           report_title: Backend Tests 
+        #generate artifacts
+      - name: "📂 production artifacts"
+        uses: actions/upload-artifact@v2
+        with:
+          name: TestResult
+          path: _TMP/test-results.trx

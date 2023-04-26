@@ -7,5 +7,6 @@ namespace Aranzadi.DocumentAnalysis.DTO.Enums
     public enum Source
     {
         LaLey = 1
+
     }
 }
