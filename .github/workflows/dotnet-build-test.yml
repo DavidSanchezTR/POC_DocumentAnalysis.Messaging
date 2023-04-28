@@ -45,8 +45,8 @@ jobs:
     # - name: Add Nuget Repository
     #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
 
-    # - name: Install dependencies
-    #   run: dotnet restore $SOLUTION    
+    - name: Install dependencies
+      run: dotnet restore $SOLUTION    
 
     - name: Build
       run: dotnet build $SOLUTION --no-restore
