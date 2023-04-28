@@ -32,7 +32,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 2.x
-
     # - name: Setup NuGet
     #   uses: NuGet/setup-nuget@v1.0.5
 
