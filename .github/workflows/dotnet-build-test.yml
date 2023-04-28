@@ -17,24 +17,39 @@ on:
 
 jobs:
   build:
+
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+
     name: Build and Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nuget: [latest, preview, 4.x, 5.x]
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 2.x
 
-    - name: Display dotnet version
-      run: dotnet --version
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+      with:
+        nuget-version: ${{ matrix.nuget }}
+        nuget-source: {{secret.SOURCE_ARANZADI_NUGET}}
+        nuget-api-key: {{secret.APIKEY_ARANZADI_NUGET}}
+    # - name: Add Nuget Repository
+    #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
 
-    - name: Install dependencies
-      run: dotnet restore
+    # - name: Install dependencies
+    #   run: dotnet restore $SOLUTION    
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build $SOLUTION --no-restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
