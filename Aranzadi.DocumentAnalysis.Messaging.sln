@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aranzadi.DocumentAnalysis.Messaging", "Aranzadi.DocumentAnalysis.Messaging\Aranzadi.DocumentAnalysis.Messaging.csproj", "{BB0ABA6B-ADD1-44BC-B90B-60BF4EE555BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aranzadi.DocumentAnalysis.Messaging", "Aranzadi.DocumentAnalysis.Messaging\Aranzadi.DocumentAnalysis.Messaging.csproj", "{BB0ABA6B-ADD1-44BC-B90B-60BF4EE555BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aranzadi.DocumentAnalysis.DTO", "Aranzadi.DocumentAnalysis.DTO\Aranzadi.DocumentAnalysis.DTO.csproj", "{9591B8A6-84EF-4185-BE06-50906891EB5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aranzadi.DocumentAnalysis.DTO", "Aranzadi.DocumentAnalysis.DTO\Aranzadi.DocumentAnalysis.DTO.csproj", "{9591B8A6-84EF-4185-BE06-50906891EB5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aranzadi.DocumentAnalysis.Messaging.Test", "Aranzadi.DocumentAnalysis.Messaging.Test\Aranzadi.DocumentAnalysis.Messaging.Test.csproj", "{F056BC34-9A1D-4586-9267-769375F6279D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aranzadi.DocumentAnalysis.Messaging.Test", "Aranzadi.DocumentAnalysis.Messaging.Test\Aranzadi.DocumentAnalysis.Messaging.Test.csproj", "{F056BC34-9A1D-4586-9267-769375F6279D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
