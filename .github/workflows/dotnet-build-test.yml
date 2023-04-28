@@ -40,8 +40,8 @@ jobs:
       uses: NuGet/setup-nuget@v1
       with:
         nuget-version: ${{ matrix.nuget }}
-        nuget-source: ${{secret.SOURCE_ARANZADI_NUGET}}
-        nuget-api-key: ${{secret.APIKEY_ARANZADI_NUGET}}
+        nuget-source: ${{secrets.SOURCE_ARANZADI_NUGET}}
+        nuget-api-key: ${{secrets.APIKEY_ARANZADI_NUGET}}
     # - name: Add Nuget Repository
     #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
 
