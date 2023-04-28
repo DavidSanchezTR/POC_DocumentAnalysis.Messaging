@@ -24,6 +24,9 @@ jobs:
 
     name: Build and Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nuget: [latest, preview, 4.x, 5.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -32,8 +35,13 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 2.x
-    # - name: Setup NuGet
-    #   uses: NuGet/setup-nuget@v1.0.5
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+      with:
+        nuget-version: ${{ matrix.nuget }}
+        nuget-source: {{secret.SOURCE_ARANZADI_NUGET}}
+        nuget-api-key: {{secret.APIKEY_ARANZADI_NUGET}}
     # - name: Add Nuget Repository
     #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
 
