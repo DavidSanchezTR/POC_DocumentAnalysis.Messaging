@@ -34,9 +34,11 @@ jobs:
         dotnet-version: 2.x
     # - name: Setup NuGet
     #   uses: NuGet/setup-nuget@v1.0.5
+    - name: Add Nuget Repository
+      run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
 
     - name: Install dependencies
-      run: dotnet restore $SOLUTION     
+      run: dotnet restore $SOLUTION    
 
     - name: Build
       run: dotnet build $SOLUTION --configuration BUILD_CONFIG --no-restore
