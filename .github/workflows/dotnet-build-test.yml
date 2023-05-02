@@ -27,7 +27,7 @@ jobs:
       PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
 
     name: Build and Test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         nuget: [5.x]
@@ -46,7 +46,7 @@ jobs:
         nuget-version: ${{ matrix.nuget }}
 
     - name: Auth Nuget TR
-      run: dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password 't6cklmze2tgwyigmlhms2s52l26pdnm5sgwwfq4ob73awcqkvuqa'
+      run: dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password 't6cklmze2tgwyigmlhms2s52l26pdnm5sgwwfq4ob73awcqkvuqa' --store-password-in-clear-text
 
     - name: Install dependencies
       run: dotnet restore $SOLUTION    
