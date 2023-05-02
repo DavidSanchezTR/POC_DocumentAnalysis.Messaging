@@ -48,11 +48,11 @@ jobs:
 
     - name: Auth Nuget TR
       run: 
-        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text --configfile ${{ env.NUGET_CONFIG }}
+        dotnet nuget add source 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json' --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password 't6cklmze2tgwyigmlhms2s52l26pdnm5sgwwfq4ob73awcqkvuqa' --store-password-in-clear-text --configfile ${{ env.NUGET_CONFIG }}
 
     - name: Prueba
       run: type ./nuget.config
-      
+
     - name: Restore Nuget Packages
       run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed  
 
