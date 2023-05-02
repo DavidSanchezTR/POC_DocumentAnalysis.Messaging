@@ -22,7 +22,7 @@ jobs:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
       NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
-      NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
+      NUGET_FEED_SOURCE: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
       NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
       PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
 
