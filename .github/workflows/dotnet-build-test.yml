@@ -25,6 +25,7 @@ jobs:
       NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
       NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
       PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
+      NUGET_CONFIG: ./Nuget.Config
 
     name: Build and Test
     runs-on: windows-latest
@@ -47,8 +48,8 @@ jobs:
 
     - name: Auth Nuget TR
       run: 
-        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text    
-        dotnet nuget list source
+        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text -ConfigFile "${{ env.NUGET.CONFIG }}"    
+
     - name: Restore Nuget Packages
       run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed   
 
