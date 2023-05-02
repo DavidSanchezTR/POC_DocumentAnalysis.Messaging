@@ -21,9 +21,13 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+      NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
+      NUGET_FEED_SOURCE: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
+      NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
+      PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
 
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         nuget: [5.x]
@@ -40,16 +44,16 @@ jobs:
       uses: NuGet/setup-nuget@v1
       with:
         nuget-version: ${{ matrix.nuget }}
-        nuget-source: ${{secrets.SOURCE_ARANZADI_NUGET}}
-        nuget-api-key: ${{secrets.APIKEY_ARANZADI_NUGET}}
-    # - name: Add Nuget Repository
-    #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
+
+    - name: Auth Nuget TR
+      run: 
+        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text    
 
     - name: Install dependencies
-      run: dotnet restore $SOLUTION    
+      run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed   
 
     - name: Build
-      run: dotnet build $SOLUTION --no-restore
+      run: dotnet build ${{ env.SOLUTION }}  --no-restore
 
     - name: Test
       run: dotnet test --no-restore --no-build --verbosity normal
