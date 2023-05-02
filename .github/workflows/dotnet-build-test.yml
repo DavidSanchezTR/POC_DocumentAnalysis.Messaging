@@ -46,7 +46,7 @@ jobs:
         nuget-version: ${{ matrix.nuget }}
 
     - name: Auth Nuget TR
-      run: dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }}
+      run: dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password 't6cklmze2tgwyigmlhms2s52l26pdnm5sgwwfq4ob73awcqkvuqa'
 
     - name: Install dependencies
       run: dotnet restore $SOLUTION    
