@@ -47,14 +47,10 @@ jobs:
 
     - name: Auth Nuget TR
       run: 
-        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text
-    
-    - name: Auth Nuget.Org
-      run: 
-        dotnet nuget add source 'https://api.nuget.org/v3/index.json'
+        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text    
 
     - name: Install dependencies
-      run: dotnet restore ${{ env.SOLUTION }}    
+      run: dotnet restore    
 
     - name: Build
       run: dotnet build ${{ env.SOLUTION }}  --no-restore
