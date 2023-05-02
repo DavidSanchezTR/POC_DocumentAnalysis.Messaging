@@ -21,14 +21,20 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+      NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
+      NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
+      NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
+      PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
 
     name: Build and Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        configuration: [Release]
         nuget: [5.x]
 
     steps:
+    - name: Checkout
     - uses: actions/checkout@v3
 
     - name: Setup .NET
@@ -40,10 +46,9 @@ jobs:
       uses: NuGet/setup-nuget@v1
       with:
         nuget-version: ${{ matrix.nuget }}
-        nuget-source: ${{secrets.SOURCE_ARANZADI_NUGET}}
-        nuget-api-key: ${{secrets.APIKEY_ARANZADI_NUGET}}
-    # - name: Add Nuget Repository
-    #   run: dotnet nuget add source {{secret.SOURCE_ARANZADI_NUGET}} --password {{secret.APIKEY_ARANZADI_NUGET}}
+
+    - name: Auth Nuget TR
+      run: dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }}
 
     - name: Install dependencies
       run: dotnet restore $SOLUTION    
