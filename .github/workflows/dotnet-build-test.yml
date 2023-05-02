@@ -26,6 +26,7 @@ jobs:
       NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
       PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
       NUGET_CONFIG: './Nuget.Config'
+      
 
     name: Build and Test
     runs-on: windows-latest
