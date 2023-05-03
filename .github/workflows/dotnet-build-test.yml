@@ -21,10 +21,11 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
-      NUGET_FEED_NAME: 'TR Artifacts'
+      NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
       NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
       NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
       PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
+      NUGET_CONFIG: './Nuget.Config'
 
     name: Build and Test
     runs-on: windows-latest
@@ -47,10 +48,10 @@ jobs:
 
     - name: Auth Nuget TR
       run: 
-        dotnet nuget add source ${{ env.NUGET_FEED_SOURCE }} --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text    
+        dotnet nuget add source 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json' --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text --configfile ${{ env.NUGET_CONFIG }}
 
     - name: Restore Nuget Packages
-      run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed   
+      run: dotnet restore ${{ env.SOLUTION }} --verbosity normal  
 
     - name: Build
       run: dotnet build ${{ env.SOLUTION }}  --no-restore
