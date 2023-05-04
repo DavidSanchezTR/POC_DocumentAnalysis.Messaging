@@ -19,13 +19,13 @@ jobs:
   build:
 
     env:
-      BUILD_CONFIG: 'Release'
-      SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
-      NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
-      NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
-      NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
-      PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
-      NUGET_CONFIG: './Nuget.Config'
+      build_config: 'Release'
+      solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+      nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
+      nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
+      nuget_api_key: ${{secrets.APIKEY_ARANZADI_NUGET}}
+      password_ado: ${{secrets.PASSWORD_ADO}}
+      nuget_config: './Nuget.Config'
 
     name: Build and Test
     runs-on: windows-latest
@@ -48,7 +48,7 @@ jobs:
 
     - name: Auth Nuget TR
       run: 
-        dotnet nuget add source 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json' --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text --configfile ${{ env.NUGET_CONFIG }}
+        dotnet nuget add source ${{ env.nuget_feed_source }} --name ${{ env.nuget_feed_name }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.password_ado }} --store-password-in-clear-text --configfile ${{ env.nuget_config }}
 
     - name: Prueba
       run: type ./nuget.config
