@@ -22,6 +22,7 @@ jobs:
   analyze:
     name: Analyze
     runs-on: windows-latest
+    permissions: write-all
 
     strategy:
       fail-fast: false
@@ -66,5 +67,5 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-      # with:
-      #   category: "/language:${{matrix.language}}"
+      with:
+        category: "/language:${{matrix.language}}"
