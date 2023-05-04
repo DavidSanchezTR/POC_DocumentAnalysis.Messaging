@@ -19,51 +19,45 @@ jobs:
   build:
 
     env:
-      build_config: 'Release'
-      solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
-      nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
-      nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
-      nuget_api_key: ${{secrets.APIKEY_ARANZADI_NUGET}}
-      password_ado: ${{secrets.PASSWORD_ADO}}
-      nuget_config: './Nuget.Config'
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+      NUGET_FEED_NAME: 'SWF_Burgos_Spain_Artifacts_feed'
+      NUGET_FEED_SOURCE: ${{secrets.SOURCE_ARANZADI_NUGET}}
+      NUGET_FEED_API_KEY: ${{secrets.APIKEY_ARANZADI_NUGET}}
+      PASSWORD_ADO: ${{secrets.PASSWORD_ADO}}
+      NUGET_CONFIG: './Nuget.Config'
 
     name: Build and Test
     runs-on: windows-latest
-
     strategy:
       matrix:
         nuget: [5.x]
-        dotnet-version: ['2.x']
-        configuration: [Release]
 
     steps:
-    - name: Checkout
     - uses: actions/checkout@v3
 
-    # Install the .NET Core workload
-    - name: Install .NET
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: 2.x
 
-    # Install Nuget Packages
-    - name: Install NuGet Packages
+    - name: Setup NuGet
       uses: NuGet/setup-nuget@v1
       with:
         nuget-version: ${{ matrix.nuget }}
 
-    # Add Nuget Artifacts
     - name: Auth Nuget TR
-      run: dotnet nuget add source ${{ env.nuget_feed_source }} --name ${{ env.nuget_feed_name }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.password_ado }} --store-password-in-clear-text --configfile ${{ env.nuget_config }}
+      run: 
+        dotnet nuget add source 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json' --name ${{ env.NUGET_FEED_NAME }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.PASSWORD_ADO }} --store-password-in-clear-text --configfile ${{ env.NUGET_CONFIG }}
 
-    # Restore Nuget Packages
+    - name: Prueba
+      run: type ./nuget.config
+
     - name: Restore Nuget Packages
-      run: dotnet restore ${{ env.solution_path }} --verbosity normal  
+      run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed  
 
-    # Build Solution
     - name: Build
-      run: dotnet build ${{ env.solution_path }} --no-restore
+      run: dotnet build ${{ env.SOLUTION }}  --no-restore
 
-    # Execute Unit Tests in the solution
-    - name: Execute Unit Tests
+    - name: Test
       run: dotnet test --no-restore --no-build --verbosity normal
