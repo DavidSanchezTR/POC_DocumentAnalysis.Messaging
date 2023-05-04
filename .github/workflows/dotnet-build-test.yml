@@ -68,4 +68,4 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
       - name: Run Test
-        run: dotnet test --configuration Release --verbosity normal
+        run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
