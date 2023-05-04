@@ -56,8 +56,8 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.SOLUTION }} --configuration ${{ matrix.configuration }} --no-restore
 
-    - name: Test
-      run: dotnet test --configuration ${{ matrix.configuration }} --no-restore --no-build --verbosity normal
+    # - name: Test
+    #   run: dotnet test --configuration ${{ matrix.configuration }} --no-restore --no-build --verbosity normal
 
   unit-test:
     name: Unit Test
