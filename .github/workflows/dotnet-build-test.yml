@@ -49,8 +49,7 @@ jobs:
         nuget-version: ${{ matrix.nuget_version }}
 
     - name: Auth Nuget TR
-      run: 
-        dotnet nuget add source ${{ env.nuget_feed_source }} --name ${{ env.nuget_feed_name }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.password_ado }} --store-password-in-clear-text --configfile ${{ env.nuget_config }}
+      run: dotnet nuget add source ${{ env.nuget_feed_source }} --name ${{ env.nuget_feed_name }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.password_ado }} --store-password-in-clear-text --configfile ${{ env.nuget_config }}
 
     - name: Restore Nuget Packages
       run: dotnet restore ${{ env.solution_path }} --verbosity normal 
@@ -58,5 +57,5 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.solution_path }} --configuration ${{ env.configuration }} --no-restore
 
-    - name: Test
+    - name: Run Test
       run: dotnet test --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
