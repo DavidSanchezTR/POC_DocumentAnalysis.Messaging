@@ -29,6 +29,7 @@ jobs:
 
     name: Build and Test
     runs-on: windows-latest
+    
     strategy:
       matrix:
         nuget: [5.x]
@@ -62,7 +63,7 @@ jobs:
 
     # Build Solution
     - name: Build
-      run: dotnet build ${{ env.solution_path }} --configuration ${{ env.build_config }} --no-restore
+      run: dotnet build ${{ env.solution_path }} --no-restore
 
     # Execute Unit Tests in the solution
     - name: Execute Unit Tests
