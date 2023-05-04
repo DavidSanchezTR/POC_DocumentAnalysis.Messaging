@@ -16,10 +16,9 @@ on:
     branches: ["main"]
 
 jobs:
-  build:    
+  build:
 
     env:
-      configuration: ['Release']
       solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
       nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
       nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
@@ -27,7 +26,7 @@ jobs:
       password_ado: ${{secrets.PASSWORD_ADO}}
       nuget_config: './Nuget.Config'
 
-    name: Build and Restore Nuget Packages
+    name: Build and Test
     runs-on: windows-latest
     strategy:
       matrix:
@@ -55,11 +54,11 @@ jobs:
       run: dotnet restore ${{ env.SOLUTION }} --verbosity normal 
 
     - name: Build
-      run: dotnet build ${{ env.SOLUTION }} --configuration ${{ env.configuration }} --no-restore
+      run: dotnet build ${{ env.SOLUTION }} --configuration ${{ matrix.configuration }} --no-restore
 
-    # - name: Test
-    #   run: dotnet test --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
-  
+    - name: Test
+      run: dotnet test --configuration ${{ matrix.configuration }} --no-restore --no-build --verbosity normal
+
   unit-test:
     name: Unit Test
     runs-on: windows-latest
