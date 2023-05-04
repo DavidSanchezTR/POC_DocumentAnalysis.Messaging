@@ -32,6 +32,7 @@ jobs:
     strategy:
       matrix:
         nuget: [5.x]
+        dotnet-version: [2.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -50,14 +51,11 @@ jobs:
       run: 
         dotnet nuget add source ${{ env.nuget_feed_source }} --name ${{ env.nuget_feed_name }} --username 'david.sanchezfuentes@thomsonreuters.com' --password ${{ env.password_ado }} --store-password-in-clear-text --configfile ${{ env.nuget_config }}
 
-    - name: Prueba
-      run: type ./nuget.config
-
     - name: Restore Nuget Packages
       run: dotnet restore ${{ env.SOLUTION }} --verbosity detailed  
 
     - name: Build
-      run: dotnet build ${{ env.SOLUTION }}  --no-restore
+      run: dotnet build ${{ env.SOLUTION }} --configuration ${{ env.build_config }} --no-restore
 
     - name: Test
       run: dotnet test --no-restore --no-build --verbosity normal
