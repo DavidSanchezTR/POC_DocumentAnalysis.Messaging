@@ -64,8 +64,13 @@ jobs:
     runs-on: windows-latest
     needs: [ build ]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.x
+
       - name: Run Test
-        run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
+        run: dotnet test --configuration Release --no-restore --verbosity normal
