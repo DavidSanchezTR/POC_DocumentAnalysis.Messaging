@@ -34,7 +34,7 @@ jobs:
       nuget_config: './Nuget.Config'
 
     name: Build and Test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
@@ -85,6 +85,7 @@ jobs:
 
     - name: Generate coverage report
       run: dotnet test --no-build --configuration ${{ env.configuration }} --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
