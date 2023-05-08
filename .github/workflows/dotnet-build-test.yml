@@ -35,6 +35,13 @@ jobs:
 
     name: Build and Test
     runs-on: windows-latest
+
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+      
     strategy:
       matrix:
         nuget_version: [5.x]
