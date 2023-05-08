@@ -69,7 +69,7 @@ jobs:
       working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
 
     - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-composite@v2
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
       with:
         files: "**/test_results.xml"
         format: "trx"
