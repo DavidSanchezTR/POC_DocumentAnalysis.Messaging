@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         nuget_version: [5.x]
-        dotnet_version: [2.x]
+        dotnet_version: [5.0.x]
 
     steps:
     - name: Checkout
@@ -60,8 +60,40 @@ jobs:
     - name: Restore Nuget Packages
       run: dotnet restore ${{ env.solution_path }} --verbosity normal 
 
-    - name: Build
+    - name: Build Solution
       run: dotnet build ${{ env.solution_path }} --configuration ${{ env.configuration }} --no-restore
 
     - name: Run Test
-      run: dotnet test --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
+      run: dotnet test --logger "trx;LogFileName=test_results.xml" --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
+      working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      with:
+        files: "**/test_results.xml"
+        format: "trx"
+
+    - name: Generate Test Coverage Report
+      uses: coverallsapp/github-action@v1.4.4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-lcov: true
+        exclude: |
+          MyProject.Tests/**
+          **/obj/**
+
+    - name: Create Test Coverage Badge
+      uses: badgen/badgen-action@v1.3.3
+      with:
+        subject: test-coverage
+        status: ${{ steps.test.outputs.coverage }}
+        color: "#4c1"
+
+    - name: Add Link to Test Report in README
+      uses: dawidd6/action-add-link-to-readme@v2.4.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        file: README.md
+        message: Add link to test report
+        replacement-pattern: '(\[!\[Test Results\]\(https://github.com/DavidSanchezTR/POC_DocumentAnalysisService/badge.svg\)\]\(https://github.com/DavidSanchezTR/POC_DocumentAnalysisService/actions/runs/123456789\))'
+        link: 'https://coveralls.io/github/DavidSanchezTR/POC_DocumentAnalysisService?branch=main'        
