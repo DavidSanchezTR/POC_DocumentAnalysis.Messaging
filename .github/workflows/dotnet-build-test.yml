@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Build and Test
+name: CI
 
 on:
   push:
@@ -45,10 +45,10 @@ jobs:
     strategy:
       matrix:
         nuget_version: [5.x]
-        dotnet_version: [5.0.x]
+        dotnet_version: [6.x]
 
     steps:
-    - name: Checkout
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
     - name: Setup .NET
@@ -70,29 +70,29 @@ jobs:
     - name: Build Solution
       run: dotnet build ${{ env.solution_path }} --configuration ${{ env.configuration }} --no-restore
 
-    - name: Run Test
-      id: test
-      run: dotnet test --logger "trx;LogFileName=test_results.xml" --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
-      working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
+    # - name: Run Test
+    #   id: test
+    #   run: dotnet test --logger "trx;LogFileName=test_results.xml" --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
+    #   working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
 
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action/composite@v2
-      with:
-        files: "**/test_results.xml"
-        format: "trx"
-
-    # - name: DotNet Unit Test
-    #   uses: zyborg/dotnet-tests-report@v1
-    #   if: ${{ !cancelled() }}
+    # - name: Publish Test Results
+    #   uses: EnricoMi/publish-unit-test-result-action/composite@v2
     #   with:
-    #     project_path: ./Aranzadi.DocumentAnalysis.Messaging.Test
-    #     report_name: unit-tests-results
-    #     report_title: Unit Tests Result
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     gist_name: unit_tests.md
-    #     gist_badge_label: "Unit-Tests: %Counters_passed%/%Counters_total%"
-    #     gist_token: ${{ secrets.GIST_TKV }}
-    #     set_check_status_from_test_outcome: true
+    #     files: "**/test_results.xml"
+    #     format: "trx"
+
+    - name: DotNet Unit Test
+      uses: zyborg/dotnet-tests-report@v1
+      if: ${{ !cancelled() }}
+      with:
+        project_path: ./Aranzadi.DocumentAnalysis.Messaging.Test
+        report_name: unit-tests-results
+        report_title: Unit Tests Result
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        gist_name: unit_tests.md
+        gist_badge_label: "Unit-Tests: %Counters_passed%/%Counters_total%"
+        gist_token: ${{ secrets.GIST_TOKEN }}
+        set_check_status_from_test_outcome: true
 
     # - name: Generate coverage report
     #   run: dotnet test --no-build --configuration ${{ env.configuration }} --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
