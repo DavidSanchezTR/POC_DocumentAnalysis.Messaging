@@ -12,7 +12,12 @@ jobs:
   test:
     name: Unit Test
     uses: DavidSanchezTR/POC_DocumentAnalysis.Messaging/.github/workflows/dotnet-build-test.yml@main    
-
+    permissions:
+        contents: read
+        issues: read
+        checks: write
+        pull-requests: write
+        
   build:
 
     env:
@@ -58,7 +63,7 @@ jobs:
     - name: Build NuGet Package
       run: dotnet pack --configuration ${{ env.configuration }} --output _tmp
       #working-directory: ./Aranzadi.DocumentAnalysis.Messaging
-      
+
     - name: Upload NuGet package
       uses: actions/upload-artifact@v2
       with:
