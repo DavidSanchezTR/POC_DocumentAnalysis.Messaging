@@ -62,10 +62,10 @@ jobs:
     
     - name: Build NuGet Package
       run: dotnet pack --configuration ${{ env.configuration }} --output _tmp
-      #working-directory: ./Aranzadi.DocumentAnalysis.Messaging
+      working-directory: ./Aranzadi.DocumentAnalysis.Messaging
 
     - name: Upload NuGet package
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: nuget-package
         path: _tmp/*.nupkg
