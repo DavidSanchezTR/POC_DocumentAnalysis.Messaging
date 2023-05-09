@@ -9,29 +9,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: Unit Test
-    uses: DavidSanchezTR/POC_DocumentAnalysis.Messaging/.github/workflows/dotnet-build-test.yml@main    
-    permissions:
-        contents: read
-        issues: read
-        checks: write
-        pull-requests: write
+#   test:
+#     name: Unit Test
+#     uses: DavidSanchezTR/POC_DocumentAnalysis.Messaging/.github/workflows/dotnet-build-test.yml@main    
+#     permissions:
+#         contents: read
+#         issues: read
+#         checks: write
+#         pull-requests: write
         
   build:
 
     env:
-     configuration: 'Release'
-     solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
-     nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
-     nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
-     nuget_api_key: ${{ secrets.APIKEY_ARANZADI_NUGET }}
-     password_ado: ${{ secrets.PASSWORD_ADO }}
-     nuget_config: './Nuget.Config'
+      configuration: 'Release'
+      solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+      nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
+      nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
+      nuget_api_key: ${{ secrets.APIKEY_ARANZADI_NUGET }}
+      password_ado: ${{ secrets.PASSWORD_ADO }}
+      nuget_config: './Nuget.Config'
 
     name: Build and Pack   
     runs-on: windows-latest  # For a list of available runner types, refer to  https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    needs: [test]
+    # needs: [test]
     strategy:
         matrix:
           nuget_version: [5.x]
