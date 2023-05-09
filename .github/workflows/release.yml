@@ -61,11 +61,11 @@ jobs:
       run: dotnet build ${{ env.solution_path }} --configuration ${{ env.configuration }} --no-restore
     
     - name: Build NuGet Package
-      run: dotnet pack --configuration ${{ env.configuration }} --output _tmp
+      run: dotnet pack --configuration ${{ env.configuration }}
       working-directory: ./Aranzadi.DocumentAnalysis.Messaging
 
     - name: Upload NuGet package
       uses: actions/upload-artifact@v3
       with:
         name: nuget-package
-        path: _tmp/*.nupkg
+        path: ./Aranzadi.DocumentAnalysis.Messaging/*.nupkg
