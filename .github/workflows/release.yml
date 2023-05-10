@@ -71,11 +71,12 @@ jobs:
         path: _tmp/*.nupkg
 
   release:
-    # environment:
-    #     name: production
-    #     url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.tag_version.outputs.new_tag }}
+    environment:
+        name: production
+        url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.tag_version.outputs.new_tag }}
     name: Semantic Release and Nuget Push TR
-    needs: [build]
+    needs:
+        - build
 
     runs-on: ubuntu-latest
     steps:
