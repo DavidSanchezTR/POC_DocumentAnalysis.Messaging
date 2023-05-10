@@ -21,18 +21,17 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  configuration: 'Release'
+  solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
+  nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
+  nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
+  password_ado: ${{secrets.PASSWORD_ADO}}
+  nuget_config: './Nuget.Config'
+
 jobs:
   build:    
-
-    env:
-      configuration: 'Release'
-      solution_path: 'Aranzadi.DocumentAnalysis.Messaging.sln'
-      nuget_feed_name: 'SWF_Burgos_Spain_Artifacts_feed'
-      nuget_feed_source: 'https://pkgs.dev.azure.com/TR-Legal-OnlineServices/_packaging/SWF_Burgos_Spain_Artifacts_feed/nuget/v3/index.json'
-      nuget_api_key: ${{secrets.APIKEY_ARANZADI_NUGET}}
-      password_ado: ${{secrets.PASSWORD_ADO}}
-      nuget_config: './Nuget.Config'
-      
+   
     name: Build and Test
     runs-on: windows-latest
 
