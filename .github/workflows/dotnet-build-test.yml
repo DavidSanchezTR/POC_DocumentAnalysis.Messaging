@@ -80,7 +80,6 @@ jobs:
     #   with:
     #     files: "**/test_results.xml"
     #     format: "trx"
-
     - name: DotNet Unit Test
       uses: zyborg/dotnet-tests-report@v1
       if: ${{ !cancelled() }}
