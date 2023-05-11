@@ -20,7 +20,6 @@ namespace Aranzadi.DocumentAnalysis.Messaging.BackgroundOperations
     {
         private readonly IMessageReceiver receiver;
         private Func<AnalysisContext, DocumentAnalysisRequest, Task<bool>> theAction;
-        private CancellationToken cancellationToken;
         private readonly MessagingConfiguration confi;
         private readonly IMessageSender sender;
 
@@ -53,7 +52,7 @@ namespace Aranzadi.DocumentAnalysis.Messaging.BackgroundOperations
                         await this.theAction(additionalData, chunck.Data);
                     }
                 }
-                catch (Exception ex) //In a more complex app, you could set up individually each failure on each chunk
+                catch (Exception ex)
                 {
                     menssage.Message.DataChunks.ForEach(chunk =>
                     {
