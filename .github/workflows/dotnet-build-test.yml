@@ -69,29 +69,29 @@ jobs:
     - name: Build Solution
       run: dotnet build ${{ env.solution_path }} --configuration ${{ env.configuration }} --no-restore
 
-    - name: Dotnet Unit Tests
-      id: test
-      run: dotnet test --logger "trx;LogFileName=test_results.xml" --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
-      working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
+    # - name: Dotnet Unit Tests
+    #   id: test
+    #   run: dotnet test --logger "trx;LogFileName=test_results.xml" --configuration ${{ env.configuration }} --no-restore --no-build --verbosity normal
+    #   working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
 
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action/composite@v2
-      with:
-        files: "**/test_results.xml"
-        format: "trx"
-
-    # - name: DotNet Unit Test
-    #   uses: zyborg/dotnet-tests-report@v1
-    #   if: ${{ !cancelled() }}
+    # - name: Publish Test Results
+    #   uses: EnricoMi/publish-unit-test-result-action/composite@v2
     #   with:
-    #     project_path: ./Aranzadi.DocumentAnalysis.Messaging.Test
-    #     report_name: Unit Tests Result
-    #     report_title: Unit Tests Result
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     gist_name: unit_tests.md
-    #     gist_badge_label: "Unit-Tests: %Counters_passed%/%Counters_total%"
-    #     gist_token: ${{ secrets.GIST_TKV }}
-    #     set_check_status_from_test_outcome: true
+    #     files: "**/test_results.xml"
+    #     format: "trx"
+
+    - name: DotNet Unit Test
+      uses: zyborg/dotnet-tests-report@v1
+      if: ${{ !cancelled() }}
+      with:
+        project_path: ./Aranzadi.DocumentAnalysis.Messaging.Test
+        report_name: Unit Tests Result
+        report_title: Unit Tests Result
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        gist_name: unit_tests.md
+        gist_badge_label: "Unit-Tests: %Counters_passed%/%Counters_total%"
+        gist_token: ${{ secrets.GIST_TKV }}
+        set_check_status_from_test_outcome: true
     # - name: Run Test
     #   run: dotnet test --no-build --configuration ${{ env.configuration }} --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
     #   working-directory: ./Aranzadi.DocumentAnalysis.Messaging.Test
