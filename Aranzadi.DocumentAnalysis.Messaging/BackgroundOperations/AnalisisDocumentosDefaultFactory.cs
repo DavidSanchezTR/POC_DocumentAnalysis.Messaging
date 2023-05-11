@@ -20,6 +20,8 @@ namespace Aranzadi.DocumentAnalysis.Messaging.BackgroundOperations
         private static Object lockObject = new Object();
         private static MessageFactory messageFactory;
         private static IHttpClientFactory httpClientFactory;
+        private MessagingConfiguration confi;
+        private readonly ILog logger;
 
         private static void ConfigureFactory()
         {
@@ -36,22 +38,17 @@ namespace Aranzadi.DocumentAnalysis.Messaging.BackgroundOperations
                         ServiceProvider serviceProvider = new ServiceCollection().AddHttpClient()
                             .BuildServiceProvider();
                         httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-                        //serviceProvider.Dispose();
                     }
                 }
             }
         }
-
-
-        private MessagingConfiguration confi;
-        private readonly ILog logger;
 
         public AnalisisDocumentosDefaultFactory(MessagingConfiguration confi)
         {
             this.confi = confi;
         }
 
-        public AnalisisDocumentosDefaultFactory(MessagingConfiguration confi, ILog logger) : this(confi)
+        public AnalisisDocumentosDefaultFactory(MessagingConfiguration confi, ILog logger) : this (confi)
         {
             this.logger = logger;
         }
