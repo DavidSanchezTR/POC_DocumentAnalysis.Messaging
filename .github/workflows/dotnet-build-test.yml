@@ -81,7 +81,7 @@ jobs:
     #     format: "trx"
 
     - name: DotNet Unit Test
-      uses: zyborg/dotnet-tests-report@v2
+      uses: zyborg/dotnet-tests-report@v1
       if: ${{ !cancelled() }}
       with:
         project_path: ./Aranzadi.DocumentAnalysis.Messaging.Test
