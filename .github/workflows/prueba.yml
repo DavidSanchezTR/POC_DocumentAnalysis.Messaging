@@ -16,9 +16,8 @@ parameters:
 
 jobs:        
    write:
-
-    name: write echo  
-    runs-on: windows-latest    
-    steps:   
-    - ${{ each name in parameters.appname }}:
-     run: echo "El microservicio se llama " ${{ name }}
+    - name: write echo  
+      runs-on: windows-latest    
+      steps:   
+      - ${{ each name in parameters.appname }}:
+       run: echo "El microservicio se llama " ${{ name }}
